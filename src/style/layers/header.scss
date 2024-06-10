@@ -1,0 +1,40 @@
+.header {
+  border-bottom: 1px solid #000000;
+
+  // .header__container
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // .header__logo
+
+  &__logo {
+    font-size: 20px;
+  }
+
+  // .header__user
+
+  &__user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  // .header__username
+
+  &__username {
+    font-size: 20px;
+  }
+
+  // .header__userpic
+
+  &__userpic {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #000000;
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="" href="./src/img/symbol-defs.svg">
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="header__container">
+        <div class="header__logo">$Mooney</div>
+        <div class="header__user">
+          <p class="header__username">Maddie</p>
+          <img src="./src/img/user.jpg" alt="user picture" class="header__userpic" height="50" width="50">
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="main__container">
+        <aside class="main__aside aside">
+          <form action="" class="aside__form form">
+            <select class="form__select" name="type" id="type">
+              <option value="0">Choice</option>
+              <option value="alcohol">Alcohol</option>
+              <option value="clothing">Clothing</option>
+              <option value="education">Education</option>
+              <option value="food">Food</option>
+              <option value="games">Games</option>
+              <option value="health">Health</option>
+              <option value="shopping">Shopping</option>
+              <option value="sports">Sports</option>
+              <option value="transport">Transport</option>
+              <option value="travel">Travel</option>
+            </select>
+
+
+            <textarea name="" id="textarea" class="form__input textarea" placeholder="Comment"></textarea>
+            <input type="number" min="0" id="sum" class="form__input" placeholder="Price" value="0">
+            <button type="button" class="form__button">Add</button>
+          </form>
+        </aside>
+        <ul class="main__list list" id="list">
+
+        </ul>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <p class="footer__text">Maked by iWenrad</p>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="./src/js/main.js"></script>
+</body>
+
+</html>

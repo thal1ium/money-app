@@ -1,0 +1,26 @@
+@import "./null.scss";
+@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:regular,500&display=swap");
+
+/*-------------------------------*\
+           Main styles
+\*-------------------------------*/
+
+body {
+  height: 100%;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+[class*="__container"] {
+  max-width: 1440px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@import './layers/header.scss';
+@import './layers/main.scss';
+@import './layers/footer.scss';
