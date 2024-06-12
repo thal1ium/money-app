@@ -34,11 +34,26 @@ function listItem(icon, comment, sum) {
 const moneyTransactionManeger = new MoneyTransactionManeger();
 
 async function loadList() {
+  listItems.innerHTML = '';
+  
   const response = await moneyTransactionManeger.getTransactionsList();
 
   response.data.forEach(element => {
     console.log(element);
+    listItems.innerHTML += listItem(icons[element["type"]], element["comment"], element["price"]);
   });
+}
+
+function dataValidityCheck(type, comment, sum) {
+  if (!(type && icons[type])) {
+    return [false, "Problem with type"];
+  }
+
+  if (!(comment.length > 0)) {
+    return [false, "the comment must not be empty"];
+  }
+
+  return [true, "data valid"];
 }
 
 document.querySelector(".form__button").addEventListener("click", (event) => {
@@ -48,17 +63,17 @@ document.querySelector(".form__button").addEventListener("click", (event) => {
   comment = document.querySelector("#textarea").value;
   sum = +document.querySelector("#sum").value;
 
-  if (!(type && icons[type])) {
-    return console.log("Problem with type");
-  }
+  const check = dataValidityCheck(type, comment, sum);
 
-  if (!(comment.length > 0)) {
-    return console.log("the comment must not be empty");
+  if (!check[0]) {
+    new Error(`Data invalid ${check[1]}`);
+    return 0;
   }
 
   moneyTransactionManeger.addTransaction(type, comment, sum);
 
-  listItems.innerHTML += listItem(icons[type], comment, sum);
+  
+  loadList();
 
 })
 

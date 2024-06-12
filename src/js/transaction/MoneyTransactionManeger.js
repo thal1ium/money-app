@@ -13,7 +13,7 @@ function MoneyTransactionManeger() {
     const transaction = new NewTransaction(uuidv4(), type, comment, sum);
 
     axios.post("http://localhost:3000/transactions", { ...transaction })
-      .then(function (response) { console.log(response); })
+      .then(function (response) { response })
       .catch(function (error) { throw Error(error) })
   };
 
