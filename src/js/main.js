@@ -9,7 +9,58 @@ let comment;
 let sum;
 const listItems = document.querySelector("#list");
 
+let moneyTransactionManeger = new MoneyTransactionManeger();
 
+function main() {
+  document.querySelector(".form__button").addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    type = document.querySelector("#type").value;
+    comment = document.querySelector("#textarea").value;
+    sum = +document.querySelector("#sum").value;
+
+    const check = dataValidityCheck(type, comment, sum);
+
+    if (!check[0]) {
+      throw new Error(`Data invalid ${check[1]}`);
+    }
+
+    await moneyTransactionManeger.addTransaction(type, comment, sum);
+    await loadList();
+  })
+}
+
+async function loadList() {
+  listItems.innerHTML = '';
+
+  try {
+    const response = await moneyTransactionManeger.getTransactionsList();
+
+    response.forEach(element => {
+      console.log("Add item");
+      listItems.innerHTML += listItem(icons[element["type"]], element["comment"], element["price"]);
+    });
+    console.log("data loaded");
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+function dataValidityCheck(type, comment, sum) {
+  if (!(type && icons[type])) {
+    return [false, "Problem with type"];
+  }
+
+  if (!(comment.length > 0)) {
+    return [false, "The comment must not be empty"];
+  }
+
+  if (isNaN(sum) || sum <= 0) {
+    return [false, "The sum must be a positive number"];
+  }
+
+  return [true, "data valid"];
+}
 
 function listItem(icon, comment, sum) {
   return ` <li class="list__item item">
@@ -31,50 +82,5 @@ function listItem(icon, comment, sum) {
 </li>`
 }
 
-const moneyTransactionManeger = new MoneyTransactionManeger();
-
-async function loadList() {
-  listItems.innerHTML = '';
-  
-  const response = await moneyTransactionManeger.getTransactionsList();
-
-  response.data.forEach(element => {
-    console.log(element);
-    listItems.innerHTML += listItem(icons[element["type"]], element["comment"], element["price"]);
-  });
-}
-
-function dataValidityCheck(type, comment, sum) {
-  if (!(type && icons[type])) {
-    return [false, "Problem with type"];
-  }
-
-  if (!(comment.length > 0)) {
-    return [false, "the comment must not be empty"];
-  }
-
-  return [true, "data valid"];
-}
-
-document.querySelector(".form__button").addEventListener("click", (event) => {
-  event.preventDefault();
-
-  type = document.querySelector("#type").value;
-  comment = document.querySelector("#textarea").value;
-  sum = +document.querySelector("#sum").value;
-
-  const check = dataValidityCheck(type, comment, sum);
-
-  if (!check[0]) {
-    new Error(`Data invalid ${check[1]}`);
-    return 0;
-  }
-
-  moneyTransactionManeger.addTransaction(type, comment, sum);
-
-  
-  loadList();
-
-})
-
 loadList();
+main();
