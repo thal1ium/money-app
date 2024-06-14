@@ -30,6 +30,19 @@ function main() {
   })
 }
 
+function deleteItem() {
+  document.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    if (event.target.id === "delete") {
+      const id = event.target.dataset.listId;
+      await moneyTransactionManeger.removeTransaction(id);
+
+      await loadList();
+    }
+  })
+}
+
 async function loadList() {
   listItems.innerHTML = '';
 
@@ -37,11 +50,12 @@ async function loadList() {
     const response = await moneyTransactionManeger.getTransactionsList();
 
     response.forEach(element => {
-      console.log("Add item");
-      listItems.innerHTML += listItem(icons[element["type"]], element["comment"], element["price"]);
+      console.log(element);
+      listItems.innerHTML += listItem(element["id"], icons[element["type"]], element["comment"], element["price"]);
     });
     console.log("data loaded");
   } catch (error) {
+    listItems.innerHTML += `<h1 style="text-align: center; font-size: 30px;">Sorry, ${error}</h1>`;
     throw new Error(error);
   }
 }
@@ -62,7 +76,7 @@ function dataValidityCheck(type, comment, sum) {
   return [true, "data valid"];
 }
 
-function listItem(icon, comment, sum) {
+function listItem(id, icon, comment, sum) {
   return ` <li class="list__item item">
   <div class="item__wrapper">
     <div class="item__type" style="background-color: ${icon[1]}">
@@ -73,8 +87,8 @@ function listItem(icon, comment, sum) {
       Sum: ${sum}
     </p>
   </div>
-  <button type="button" id="delete">
-    <svg width="30px" height="30px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <button data-list-id="${id}" type="button" id="delete">
+    <svg style="pointer-events: none;" width="30px" height="30px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
       <path fill="#000000"
         d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z" />
     </svg>
@@ -84,3 +98,4 @@ function listItem(icon, comment, sum) {
 
 loadList();
 main();
+deleteItem();
