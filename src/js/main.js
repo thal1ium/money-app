@@ -1,10 +1,12 @@
 "use strict";
 
+// Imports
 import "../style/style.scss";
 import MoneyTransactionManeger from "./transaction/MoneyTransactionManeger.js";
 import icons from "./config/icons.config.js";
 import ListItem from "./Components/ListItem/ListItem.js";
 
+// Variables
 let type;
 let comment;
 let sum;
@@ -13,8 +15,7 @@ const listItems = document.querySelector("#list");
 let moneyTransactionManeger = new MoneyTransactionManeger();
 let listItem = new ListItem();
 
-// listItem.render();
-
+// Functions
 function main() {
   document.querySelector(".form__button").addEventListener("click", async (event) => {
     event.preventDefault();
@@ -78,6 +79,7 @@ function dataValidityCheck(type, comment, sum) {
   return [true, "data valid"];
 }
 
+// Calling functions
 loadList();
 main();
 deleteItem();
