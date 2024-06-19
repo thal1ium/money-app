@@ -12,12 +12,12 @@ class MoneyTransactionManeger {
   addTransaction = async function (type, comment, sum) {
     const transaction = new NewTransaction(type, comment, sum);
 
-    await axios.post("http://localhost:3000/transactions", { ...transaction })
+    await axios.post("https://money-app-server.onrender.com/transactions", { ...transaction })
       .catch(function (error) { throw Error(error); });
   };
 
   removeTransaction = async function (id) {
-    await axios.delete(`http://localhost:3000/transactions/${id}`)
+    await axios.delete(`https://money-app-server.onrender.com/transactions/${id}`)
       .catch(function (error) { throw Error(error); });
   };
 
@@ -32,7 +32,7 @@ class MoneyTransactionManeger {
   // };
 
   getTransactionsList = async function () {
-    const response = await axios.get("http://localhost:3000/transactions");
+    const response = await axios.get("https://money-app-server.onrender.com/transactions");
     return response.data;
   };
 };
