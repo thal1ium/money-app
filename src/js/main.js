@@ -12,9 +12,18 @@ let type;
 let comment;
 let sum;
 const listItems = document.querySelector("#list");
+const preloader = document.querySelector(".preloader");
 
 let moneyTransactionManeger = new MoneyTransactionManeger();
 let listItem = new ListItem();
+
+window.addEventListener("load", (event) => {
+  preloader.classList.add("done");
+
+  setTimeout(() => {
+    preloader.remove();
+  }, 500);
+})
 
 // Functions
 function main() {
