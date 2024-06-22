@@ -8,19 +8,6 @@ class ListItem {
     return this;
   };
 
-  escapeHTML = (str) => {
-    return str.replace(/[&<>'"]/g, (tag) => {
-      const charsToReplace = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;',
-      };
-      return charsToReplace[tag] || tag;
-    });
-  };
-
   render = () => {
     return (`
     <li class="list__item item">
@@ -28,7 +15,7 @@ class ListItem {
         <div class="item__type" style="background-color: ${this.icon[1]}">
           <img class="item__img" style="max-height: 40px; max-width: 40px;" src="./src/img/icons/${this.icon[0]}.png">
         </div>
-        <p class="item__comment">${this.escapeHTML(this.comment)}</p>
+        <p class="item__comment">${this.comment}</p>
         <p class="item__price">
           Sum: ${this.sum}
         </p>

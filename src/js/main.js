@@ -5,6 +5,7 @@ import "../style/style.scss";
 import MoneyTransactionManeger from "./transaction/MoneyTransactionManeger.js";
 import icons from "./config/icons.config.js";
 import ListItem from "./Components/ListItem/ListItem.js";
+import escapeHTML from "./module/escapeHTML.js";
 
 // Variables
 let type;
@@ -64,7 +65,7 @@ async function loadList() {
     const response = await moneyTransactionManeger.getTransactionsList();
 
     response.forEach(element => {
-      listItems.innerHTML += listItem.state(element["id"], icons[element["type"]], element["comment"], element["price"]).render();
+      listItems.innerHTML += listItem.state(element["id"], icons[element["type"]], escapeHTML(element["comment"]), element["price"]).render();
     });
   } catch (error) {
     listItems.innerHTML += `<h1 style="text-align: center; font-size: 30px;">Sorry, ${error}</h1>`;
